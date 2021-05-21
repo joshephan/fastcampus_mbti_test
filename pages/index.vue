@@ -1,73 +1,33 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        mbti-fast-campus
-      </h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+  <!-- 인트로 페이지 -->
+  <main v-if="page === 0">
+    <img src="/onepiece.jpeg" alt="원피스 캐릭터들" />
+    <h1>나와 닮은 원피스 캐릭터 찾기</h1>
+    <h2>나와 닮은 원피스 캐릭터는 누구일까요?</h2>
+    <Button text="테스트 시작!" :clickEvent="startTest" />
+  </main>
+  <!-- 질문 페이지 -->
+  <main v-else-if="page < 5">
+    <Question />
+  </main>
 </template>
-
 <script>
-export default {}
+/*
+ * 메인 페이지 안에 들어갈 것
+ * 1. 인트로 페이지
+ * 2. 조건부 렌더링을 통해 퀴즈 컴포넌트
+ * 3. 결과는 페이지 이동 /result/_mbti
+ */
+export default {
+  computed: {
+    page() {
+      return this.$store.state.page;
+    }
+  },
+  methods: {
+    startTest() {
+      this.$store.commit("SET_PAGE", 1);
+    }
+  }
+};
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
